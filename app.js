@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const public_routes = require('./routes/v1/public');
 const publicRoutes = require('./routes/v1/public');
 const privateRoutes = require('./routes/v1/private');
-
+const stockRoutes = require('./routes/stockRoutes')
 
 const app = express();
 app.use(helmet());
@@ -17,6 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 //enable cors
 app.use(cors());
 app.options("*", cors());
+
+
+// Routes
+app.use('/api', stockRoutes);
+
+
+app.get("/api/test", (req, res) => {
+    res.status(200).json({ message: "Stock API is running by Deepak and checked by shubham" });
+  });
 
 //public routes for register
 app.use("/v1", public_routes);
